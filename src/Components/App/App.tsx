@@ -8,12 +8,14 @@ import AddPropertyModal from '../Modals/AddPropertyModal';
 import ConfirmModal from '../Modals/ConfirmModal/ConfirmModal';
 import ViewProperty from '../Modals/ViewProperty';
 import Row from 'react-bootstrap/Row';
+import Footer from '../Footer/Footer';
 
 /** represents a single property retrieved from the database */
 interface Property {
     _id: ObjectId,
     name: string,
     address: string,
+    type: string,
     numBedrooms: number,
     numBathrooms: number,
     numParkingSpots: number,
@@ -43,6 +45,7 @@ interface states {
     targetPropertyPrice: number,/** current active property's price  */
     targetPropertyName: string,
     propertyQuotes: { [propertyId: string]: Quote[] }, /** dictionary of properties tied to their quotes */
+
 }
 
 class App extends React.Component<{}, states> {
@@ -186,19 +189,20 @@ class App extends React.Component<{}, states> {
     generatePropertyCards() {
         return (
             this.state.properties.map(property =>
-                    <PropCard
-                        key={property._id.toString()}
-                        _id={property._id}
-                        name={property.name}
-                        address={property.address}
-                        numBedrooms={property.numBedrooms}
-                        numBathrooms={property.numBathrooms}
-                        numParkingSpots={property.numParkingSpots}
-                        price={property.price}
-                        size={property.size}
-                        onDelete={this.triggerConfirmModal}
-                        onExpand={this.triggerExpand}
-                    />
+                <PropCard
+                    key={property._id.toString()}
+                    _id={property._id}
+                    name={property.name}
+                    address={property.address}
+                    type={property.type}
+                    numBedrooms={property.numBedrooms}
+                    numBathrooms={property.numBathrooms}
+                    numParkingSpots={property.numParkingSpots}
+                    price={property.price}
+                    size={property.size}
+                    onDelete={this.triggerConfirmModal}
+                    onExpand={this.triggerExpand}
+                />
             )
         )
     }
@@ -214,17 +218,9 @@ class App extends React.Component<{}, states> {
         DataHandler.addQuote(quote).then(response => {
             let currentPropertyQuotes: { [key: string]: Quote[] } = this.state.propertyQuotes;
             if (currentPropertyQuotes.hasOwnProperty(this.state.targetProperty)) {
-                // console.info('before');
-                // console.info(currentPropertyQuotes)
                 currentPropertyQuotes[this.state.targetProperty].push(response);
-                // console.info('after');
-                // console.info(currentPropertyQuotes)
             } else {
-                console.info('before');
-                console.info(currentPropertyQuotes)
-                currentPropertyQuotes[this.state.targetProperty] = response;
-                console.info('after');
-                console.info(currentPropertyQuotes)
+                currentPropertyQuotes[this.state.targetProperty] = [response];
             }
             this.setState({ propertyQuotes: currentPropertyQuotes });
         })
@@ -266,6 +262,9 @@ class App extends React.Component<{}, states> {
                 <Row className="properties justify-content-center">
                     {this.generatePropertyCards()}
                 </Row>
+                <div className="about">
+                    <Footer />
+                </div>
             </div>
         );
     }

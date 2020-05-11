@@ -132,7 +132,7 @@ class AddQuoteModal extends React.Component<props, states> {
 
                         <Form.Group as={Row}>
                             <Col sm={{ span: 10, offset: 2 }}>
-                                <Button variant="info" type="submit" block>Save</Button>
+                                <Button type="submit" block>Save</Button>
                             </Col>
                         </Form.Group>
                     </Form>

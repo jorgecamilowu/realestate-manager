@@ -1,20 +1,54 @@
-/* .card {
-    margin: 1rem;
-} */
-.propcard {
-    margin: 1.5rem;
-    min-width: 20rem;
-    max-width: 200px;
-}
-
-.header {
-    text-align: center;
-}
-
 li {
     list-style: none;
 }
 
+.propcard {
+    margin: 1.5rem;
+    min-width: 25rem;
+    max-width: 200px;
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.header {
+    max-height: 50px;
+    text-align: end;
+    background-color: white;
+}
+
+.body {
+    text-align: center;
+    padding: 2rem;
+}
+
 .address {
     font-weight: 600;
+}
+
+.specs span {
+    margin: 10px;
+}
+
+.actionBtn {
+    position: relative;
+    bottom: 0;
+}
+
+.actionBtn:hover {
+    position: relative;
+    bottom: 3px;
+    transition: bottom 0.1s;
+    cursor: pointer;
+}
+
+.type {
+    position: relative;
+    right: 250px;
+    bottom: 5px;
+}
+
+.footer {
+    text-align: end;
+    background-color:#007892;
+    color: whitesmoke;
 }

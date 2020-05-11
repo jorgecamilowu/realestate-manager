@@ -35,6 +35,7 @@ class MetricsOverview extends React.Component<props, {}> {
                             <ListGroup variant="flush">
                                 <ListGroup.Item>Real Estate Price: {formatter.format(this.props.price)}</ListGroup.Item>
                                 <ListGroup.Item>Initial Down Payment: {formatter.format(this.props.downPayment)}</ListGroup.Item>
+                                <ListGroup.Item>Loan Amount: {formatter.format(this.props.price - this.props.downPayment)}</ListGroup.Item>
                                 <ListGroup.Item>Maturity: {this.props.maturity} years</ListGroup.Item>
                                 <ListGroup.Item>Annual Interest Rate: {this.props.rate}%</ListGroup.Item>
                                 <ListGroup.Item>Monthly Payment: {formatter.format(this.props.monthlyPayment)}</ListGroup.Item>

@@ -36,11 +36,14 @@ class ConfirmModal extends React.Component<props, {}> {
                 centered
             // aria-labelledby="example-modal-sizes-title-sm"
             >
-                    <Modal.Body className="text-center">Are you sure?</Modal.Body>
-                    <div className="text-center">
-                        <Button variant="info" onClick={this.handleConfirm}>Yes</Button>{' '}
-                        <Button variant="outline-info" onClick={this.props.onHide}>Cancel</Button>
-                    </div>
+                <Modal.Title className="text-center">Are you sure?</Modal.Title>
+                <Modal.Body>
+                    <p>Deleting this propery will also delete all related bank quotes. This process cannot be undone.</p>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button onClick={this.handleConfirm}>Yes</Button>{' '}
+                    <Button variant="outline-primary" onClick={this.props.onHide}>No</Button>
+                </Modal.Footer>
             </Modal>
         )
     }

@@ -1,15 +1,16 @@
 import React from 'react';
-import DataHandler from '../../DataManagement/DatabaseHandler'
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 
 interface props {
     show: any,
     onHide: any,
-    onAdd(property: {[key:string]: string}): void,
+    onAdd(property: { [key: string]: string }): void,
 }
 
 interface states {
@@ -47,12 +48,11 @@ class AddPropertyModal extends React.Component<props, states> {
                 ...prevState,
                 [key]: value
             })
-
         this.setState(updateState(event.target.id, event.target.value));
     }
 
     handleSubmit(event: any): void {
-        let properties: {[key:string]: string} = {
+        let properties: { [key: string]: string } = {
             name: this.state.name,
             address: this.state.address,
             type: this.state.type,
@@ -92,7 +92,6 @@ class AddPropertyModal extends React.Component<props, states> {
                 <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title-vcenter">
                         Add a new property
-                        {/* <Button variant="outline-info" onClick={this.props.onHide}>x</Button> */}
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -102,7 +101,7 @@ class AddPropertyModal extends React.Component<props, states> {
                                 Name
                             </Form.Label>
                             <Col sm={10}>
-                                <Form.Control type="text" placeholder="Name of the property" value={this.state.name} onChange={this.handleChange} required/>
+                                <Form.Control type="text" placeholder="Name of the property" value={this.state.name} onChange={this.handleChange} required />
                             </Col>
                         </Form.Group>
 
@@ -120,16 +119,24 @@ class AddPropertyModal extends React.Component<props, states> {
                                 Specifications
                             </Form.Label>
                             <Col sm={2}>
-                                <Form.Control id="numBedrooms" type="text" placeholder="Bedrooms" value={this.state.numBedrooms} onChange={this.handleChange} />
+                                <OverlayTrigger overlay={<Tooltip id="bedTooltip">number of bedrooms</Tooltip>}>
+                                    <Form.Control id="numBedrooms" type="number" placeholder="Bedrooms" value={this.state.numBedrooms} onChange={this.handleChange} />
+                                </OverlayTrigger>
                             </Col>
                             <Col sm={2}>
-                                <Form.Control id="numBathrooms" type="number" placeholder="Bathrooms" value={this.state.numBathrooms} onChange={this.handleChange} />
+                                <OverlayTrigger overlay={<Tooltip id="bathTooltip">number of bathrooms</Tooltip>}>
+                                    <Form.Control id="numBathrooms" type="number" placeholder="Bathrooms" value={this.state.numBathrooms} onChange={this.handleChange} />
+                                </OverlayTrigger>
                             </Col>
                             <Col sm={2}>
-                                <Form.Control id="numParkingSpots" type="number" placeholder="Parking Spots" value={this.state.numParkingSpots} onChange={this.handleChange} />
+                                <OverlayTrigger overlay={<Tooltip id="parkingTooltip">number of parking spots</Tooltip>}>
+                                    <Form.Control id="numParkingSpots" type="number" placeholder="Parking Spots" value={this.state.numParkingSpots} onChange={this.handleChange} />
+                                </OverlayTrigger>
                             </Col>
                             <Col sm={2}>
-                                <Form.Control id="size" type="number" placeholder="Size (sqrft)" value={this.state.size} onChange={this.handleChange} />
+                                <OverlayTrigger overlay={<Tooltip id="sizeTooltip">size (square feet)</Tooltip>}>
+                                    <Form.Control id="size" type="number" placeholder="Size (sqrft)" value={this.state.size} onChange={this.handleChange} />
+                                </OverlayTrigger>
                             </Col>
                         </Form.Group>
 
@@ -152,7 +159,7 @@ class AddPropertyModal extends React.Component<props, states> {
                                         type="radio"
                                         label="Apartment"
                                         name="propertyType"
-                                        id="apartment"
+                                        id="type"
                                         value="apartment"
                                         onChange={this.handleChange}
                                     />
@@ -160,7 +167,7 @@ class AddPropertyModal extends React.Component<props, states> {
                                         type="radio"
                                         label="House"
                                         name="propertyType"
-                                        id="house"
+                                        id="type"
                                         value="house"
                                         onChange={this.handleChange}
                                     />
@@ -169,14 +176,11 @@ class AddPropertyModal extends React.Component<props, states> {
                         </fieldset>
                         <Form.Group as={Row}>
                             <Col sm={{ span: 10, offset: 2 }}>
-                                <Button variant="info" type="submit" block>Add</Button>
+                                <Button type="submit" block>Add</Button>
                             </Col>
                         </Form.Group>
                     </Form>
                 </Modal.Body>
-                {/* <Modal.Footer>
-                    <Button variant="outline-info" onClick={this.props.onHide} block>x</Button>
-                </Modal.Footer> */}
             </Modal>
         )
     }

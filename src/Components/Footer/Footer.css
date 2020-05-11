@@ -1,0 +1,11 @@
+.about-footer {
+    color: whitesmoke;
+    background-color: #00394d;
+    height: 100px;
+    text-align: center;
+}
+
+.content {
+    position: relative;
+    bottom: 20px;
+}

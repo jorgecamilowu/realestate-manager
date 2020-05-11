@@ -1,8 +1,17 @@
 .properties {
-  margin: 3rem 8rem;
+  margin: 3rem 5rem;
   min-width: 200px;
 }
 
 .propcard {
   margin: 1.5rem;
+}
+
+/* keep footer at the bottom */
+.about {
+  position: relative;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  /* text-align: center; */
 }

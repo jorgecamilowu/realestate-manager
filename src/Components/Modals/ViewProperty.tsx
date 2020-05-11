@@ -1,4 +1,5 @@
 import React from 'react';
+import './ViewProperty.css';
 import MetricsOverview from '../FinancialMetrics/MetricsOverview';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
@@ -53,27 +54,16 @@ class ViewProperty extends React.Component<props, states> {
         this.generateTabs = this.generateTabs.bind(this);
     }
 
-    // componentWillReceiveProps(props: any) {
-    //     const { quotes } = props;
-    //     console.info(`new quote: ${Object.keys(quotes)}`);
-    //     console.info(`old quotes: ${Object.keys(this.props.quotes)}`);
-    //     if(quotes === this.props.quotes) {
-    //         console.info('componentwillreceiveprops triggered');
-    //         // console.info(quotes);
-    //         // this.setState({ quotes: quotes });
-    //     }
-    // }
-
     generateTabs() {
         let targetQuotes: Quote[] = this.props.quotes[this.props.propertyId];
         if (targetQuotes && targetQuotes.length > 0) {
-            console.info(targetQuotes);
             let output = targetQuotes.map(quote =>
                 <Tab
                 eventKey={quote._id.toString()}
                 title={quote.bankName}
                 key={quote._id.toString()}
                 >
+                    <br/>
                     <MetricsOverview
                         price={this.props.price}
                         downPayment={quote.downPayment}
@@ -84,10 +74,9 @@ class ViewProperty extends React.Component<props, states> {
                         totalPayment={quote.totalPayment}
                         totalInterest={quote.totalInterest}
                         />
-                    <Button onClick={this.handleDeleteQuote} variant="outline-danger">Delete Quote</Button>
+                    <Button className="deleteBtn" onClick={this.handleDeleteQuote} variant="outline-danger">Delete Quote</Button>
                 </Tab>
             )
-            console.info('reached before return statement');
             return output;
         }
     }
@@ -106,10 +95,7 @@ class ViewProperty extends React.Component<props, states> {
     }
 
     handleDeleteQuote() {
-        // console.info(this.state.activeTab);
         this.props.onDeleteQuote(this.state.activeTab, this.props.propertyId);
-        // this.props.onDeleteQuote(1, this.state.activeTab, this.props.propertyId);
-
     }
 
     render() {
