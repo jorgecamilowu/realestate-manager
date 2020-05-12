@@ -23,7 +23,7 @@ interface quote {
 }
 
 class DataHandler {
-    private static serverURI = "http://localhost:8080/propertyManager";
+    private static serverURI = "http://localhost:8080";
     private static endpointProp = DataHandler.serverURI + "/properties";
     private static endpointQuote = DataHandler.serverURI + "/quotes";
 
