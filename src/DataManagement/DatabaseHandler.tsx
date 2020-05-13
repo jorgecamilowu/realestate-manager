@@ -1,29 +1,8 @@
-import { ObjectId } from "mongodb";
-
-interface property {
-    name: string,
-    address: string,
-    type: string,
-    numBedrooms: number,
-    numBathrooms: number,
-    numParkingSpots: number,
-    price: number,
-    size: number,
-}
-
-interface quote {
-    property: string;
-    bankName: string;
-    monthlyPayment: number;
-    annualPayment: number;
-    totalPayment: number;
-    downPayment: number;
-    maturity: number;
-    rate: number;
-}
+// import { property, quote } from '../Data/Data';
 
 class DataHandler {
-    private static serverURI = "http://localhost:8080";
+    private static serverURI = "http://ec2-18-188-51-38.us-east-2.compute.amazonaws.com";
+    // private static serverURI = "http://localhost:8080/"
     private static endpointProp = DataHandler.serverURI + "/properties";
     private static endpointQuote = DataHandler.serverURI + "/quotes";
 
@@ -52,7 +31,6 @@ class DataHandler {
                 body: urlencoded,
             })
             if(response.ok) {
-                console.info('POST request success');
                 return await response.json();
             }
         } catch (err) {
@@ -70,7 +48,6 @@ class DataHandler {
                 body: urlencoded,
             })
             if(response.ok) {
-                console.info('PUT request success');
                 return await response.json();
             }
         } catch (err) {
@@ -86,7 +63,6 @@ class DataHandler {
                 method: 'DELETE',
             });
             if(response.ok) {
-                console.info('Delete request success');
                 return await response.json();
             }
         } catch(err) {
@@ -118,7 +94,6 @@ class DataHandler {
                 body: urlencoded,
             })
             if(response.ok) {
-                console.info('POST request success');
                 return await response.json();
             }
         } catch (err) {
@@ -135,7 +110,6 @@ class DataHandler {
                 body: urlencoded
             })
             if (response.ok) {
-                console.info('Delete request success');
                 return await response.json();
             }
         } catch (err) {
@@ -152,7 +126,6 @@ class DataHandler {
                 body: urlencoded
             });
             if(response.ok) {
-                console.info('Delete many request successful');
                 return await response.json();
             }
         } catch (err) {

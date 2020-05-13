@@ -1,7 +1,6 @@
 import React from 'react';
 import './Footer.css';
 import Jumbotron from 'react-bootstrap/Jumbotron';
-import Container from 'react-bootstrap/Container';
 
 class Footer extends React.Component {
     render() {

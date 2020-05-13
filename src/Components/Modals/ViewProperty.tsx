@@ -1,25 +1,14 @@
 import React from 'react';
 import './ViewProperty.css';
 import MetricsOverview from '../FinancialMetrics/MetricsOverview';
+import AddQuoteModal from './AddQuoteModal';
+import { quote } from '../../Data/Data';
+
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
-import { ObjectId } from 'mongodb';
-import AddQuoteModal from './AddQuoteModal';
 
-interface Quote { //unify this across the whole program
-    _id: ObjectId;
-    property: ObjectId;
-    bankName: string;
-    monthlyPayment: number;
-    annualPayment: number;
-    totalPayment: number;
-    totalInterest: number,
-    downPayment: number;
-    maturity: number;
-    rate: number;
-}
 
 interface props {
     show: any,
@@ -27,13 +16,13 @@ interface props {
     price: number,
     propertyId: string,
     propertyName: string,
-    quotes: { [propertyId: string]: Quote[] },
+    quotes: { [propertyId: string]: quote[] },
     onAddNewQuote(quote: { [key: string]: string }): void,
     onDeleteQuote(quoteId: string, propertyId: string): void,
 }
 
 interface states {
-    quotes: Quote[],
+    quotes: quote[],
     showAddQuote: boolean,
     activeTab: string, /** records current active tab's quote ID */
 }
@@ -55,7 +44,7 @@ class ViewProperty extends React.Component<props, states> {
     }
 
     generateTabs() {
-        let targetQuotes: Quote[] = this.props.quotes[this.props.propertyId];
+        let targetQuotes: quote[] = this.props.quotes[this.props.propertyId];
         if (targetQuotes && targetQuotes.length > 0) {
             let output = targetQuotes.map(quote =>
                 <Tab

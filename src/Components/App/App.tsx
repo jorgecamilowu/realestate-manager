@@ -3,49 +3,23 @@ import './App.css';
 import Header from '../Header/Header'
 import PropCard from '../Card/PropCard';
 import DataHandler from '../../DataManagement/DatabaseHandler'
-import { ObjectId } from 'mongodb';
+import { property, quote } from '../../Data/Data';
 import AddPropertyModal from '../Modals/AddPropertyModal';
-import ConfirmModal from '../Modals/ConfirmModal/ConfirmModal';
+import ConfirmModal from '../Modals/ConfirmModal';
 import ViewProperty from '../Modals/ViewProperty';
 import Row from 'react-bootstrap/Row';
 import Footer from '../Footer/Footer';
 
-/** represents a single property retrieved from the database */
-interface Property {
-    _id: ObjectId,
-    name: string,
-    address: string,
-    type: string,
-    numBedrooms: number,
-    numBathrooms: number,
-    numParkingSpots: number,
-    price: number,
-    size: number,
-}
-
-interface Quote { //unify this across the whole program
-    _id: ObjectId;
-    property: ObjectId;
-    bankName: string;
-    monthlyPayment: number;
-    annualPayment: number;
-    totalPayment: number;
-    totalInterest: number,
-    downPayment: number;
-    maturity: number;
-    rate: number;
-}
 
 interface states {
-    properties: Property[] /** represents the list of properties retrieved from database */
+    properties: property[] /** represents the list of properties retrieved from database */
     showAddModal: boolean, /** boolean state that triggers the window to add a property */
     showConfirmModal: boolean, /** boolean state that triggers the confirm message modal*/
     showExpand: boolean,
     targetProperty: string, /** current active property's id */
     targetPropertyPrice: number,/** current active property's price  */
     targetPropertyName: string,
-    propertyQuotes: { [propertyId: string]: Quote[] }, /** dictionary of properties tied to their quotes */
-
+    propertyQuotes: { [propertyId: string]: quote[] }, /** dictionary of properties tied to their quotes */
 }
 
 class App extends React.Component<{}, states> {
@@ -120,7 +94,7 @@ class App extends React.Component<{}, states> {
     }
 
     triggerExpand(id: string) {
-        let targetProperty: Property | undefined = this.state.properties.find(property => property._id.toString() === id)
+        let targetProperty: property | undefined = this.state.properties.find(property => property._id.toString() === id)
         if (targetProperty) {
             let name: string = targetProperty.name;
             let price: number = targetProperty.price;
@@ -144,7 +118,7 @@ class App extends React.Component<{}, states> {
      */
     handleAddProperty(property: { [key: string]: string }) {
         DataHandler.addProperty(property).then(response => {
-            let newProperties: Property[] = this.state.properties;
+            let newProperties: property[] = this.state.properties;
             newProperties.push(response);
             this.setState({ properties: newProperties });
         });
@@ -172,13 +146,13 @@ class App extends React.Component<{}, states> {
     handleDeleteProperty(propertyId: string): void {
         DataHandler.deleteProperty(propertyId);
         /**update state.properties to not include deleted property*/
-        let newProperties: Property[] = this.state.properties;
+        let newProperties: property[] = this.state.properties;
         newProperties = newProperties.filter(property => property._id.toString() !== propertyId);
         this.setState({ properties: newProperties });
 
         /** delete all related quotes */
         DataHandler.deleteManyQuotes(propertyId).then(() => {
-            let newQuotes: { [key: string]: Quote[] } = this.state.propertyQuotes;
+            let newQuotes: { [key: string]: quote[] } = this.state.propertyQuotes;
             delete newQuotes[propertyId];
             // newQuotes[propertyId] = newQuotes[propertyId].filter(quote => quote.property.toString() !== propertyId);
             this.setState({ propertyQuotes: newQuotes });
@@ -216,7 +190,7 @@ class App extends React.Component<{}, states> {
         quote['property'] = this.state.targetProperty;
         /** update database and list of quotes */
         DataHandler.addQuote(quote).then(response => {
-            let currentPropertyQuotes: { [key: string]: Quote[] } = this.state.propertyQuotes;
+            let currentPropertyQuotes: { [key: string]: quote[] } = this.state.propertyQuotes;
             if (currentPropertyQuotes.hasOwnProperty(this.state.targetProperty)) {
                 currentPropertyQuotes[this.state.targetProperty].push(response);
             } else {
