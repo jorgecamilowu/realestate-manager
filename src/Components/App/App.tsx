@@ -9,6 +9,7 @@ import ConfirmModal from '../Modals/ConfirmModal';
 import ViewProperty from '../Modals/ViewProperty';
 import Row from 'react-bootstrap/Row';
 import Footer from '../Footer/Footer';
+import DisplayUnresponsiveServer from '../DisplayUnresponsiveServer/DisplayUnresponsiveServer';
 
 
 interface states {
@@ -44,6 +45,7 @@ class App extends React.Component<{}, states> {
         this.handleConfirm = this.handleConfirm.bind(this);
         this.handleAddNewQuote = this.handleAddNewQuote.bind(this);
         this.handleDeleteQuote = this.handleDeleteQuote.bind(this);
+        this.displayUnresponsiveServer = this.displayUnresponsiveServer.bind(this);
     }
 
     componentDidMount() {
@@ -73,6 +75,15 @@ class App extends React.Component<{}, states> {
         this.setState({ propertyQuotes: currentPropertyQuotes });
     }
 
+    displayUnresponsiveServer() {
+        return (
+            <DisplayUnresponsiveServer 
+                title={'Error: Unresponsive Server'}
+                content={'Oops! Looks like we could not reach the database server... :('}
+            />
+        )
+    }
+
     /** trigger modal to open/close */
     triggerAddModal() {
         this.setState({
@@ -93,13 +104,17 @@ class App extends React.Component<{}, states> {
         })
     }
 
-    triggerExpand(id: string) {
-        let targetProperty: property | undefined = this.state.properties.find(property => property._id.toString() === id)
+    /**
+     * this method will help bridge the property id information needed for each 
+     * @param propertyId 
+     */
+    triggerExpand(propertyId: string) {
+        let targetProperty: property | undefined = this.state.properties.find(property => property._id.toString() === propertyId)
         if (targetProperty) {
             let name: string = targetProperty.name;
             let price: number = targetProperty.price;
             this.setState({
-                targetProperty: id,
+                targetProperty: propertyId,
                 targetPropertyPrice: price,
                 targetPropertyName: name,
                 showExpand: !this.state.showExpand,
@@ -234,7 +249,7 @@ class App extends React.Component<{}, states> {
                     onDeleteQuote={this.handleDeleteQuote}
                 />
                 <Row className="properties justify-content-center">
-                    {this.generatePropertyCards()}
+                    {this.state.properties === undefined ? this.displayUnresponsiveServer() : this.generatePropertyCards()}
                 </Row>
                 <div className="about">
                     <Footer />
