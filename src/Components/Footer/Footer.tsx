@@ -8,7 +8,7 @@ class Footer extends React.Component {
             <Jumbotron className="about-footer">
                 <div className="content">
                     <h6>© Copyright 2020 JORGE CAMILO WU ZHANG</h6>
-                    <p>Source Code: <span><a href="">Front-End</a></span> <span><a href="">Back-End</a></span></p>
+                    <p>Source Code: <span><a href="https://github.com/jorgecamilowu/realestate-manager">Front-End</a></span> <span><a href="https://github.com/jorgecamilowu/realestate-manager-server">Back-End</a></span></p>
                 </div>
             </Jumbotron>
         )

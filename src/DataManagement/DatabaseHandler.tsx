@@ -1,7 +1,7 @@
 // import { property, quote } from '../Data/Data';
 
 class DataHandler {
-    private static serverURI = "http://ec2-18-188-51-38.us-east-2.compute.amazonaws.com";
+    private static serverURI = "http://ec2-18-191-145-81.us-east-2.compute.amazonaws.com";
     // private static serverURI = "http://localhost:8080/"
     private static endpointProp = DataHandler.serverURI + "/properties";
     private static endpointQuote = DataHandler.serverURI + "/quotes";
