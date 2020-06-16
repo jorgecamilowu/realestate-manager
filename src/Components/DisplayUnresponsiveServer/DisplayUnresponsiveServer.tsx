@@ -7,6 +7,7 @@ interface props {
     content: string,
 }
 
+//component to display msgs to the user
 class DisplayUnresponsiveServer extends React.Component<props, {}> {
     render() {
         return (

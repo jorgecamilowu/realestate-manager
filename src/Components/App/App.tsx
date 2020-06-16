@@ -75,6 +75,7 @@ class App extends React.Component<{}, states> {
         this.setState({ propertyQuotes: currentPropertyQuotes });
     }
 
+    //Returns a friendly msg to inform the user database could not be reached
     displayUnresponsiveServer() {
         return (
             <DisplayUnresponsiveServer 
